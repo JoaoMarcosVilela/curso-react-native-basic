@@ -112,7 +112,7 @@ export default () => {
           </Text>
           <Text style={styles.text}>USD = Dólar americano</Text>
           <Text style={styles.text}>GBP = Libra esterlina</Text>
-          <Button text="Reverse Currencies" onPress={() => alert("todo!")} />
+          <Button text="Moedas Reversas" onPress={() => alert("todo!")} />
           <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />
         </View>
       </ScrollView>
