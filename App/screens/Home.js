@@ -7,8 +7,11 @@ import {
   Image,
   Text,
   ScrollView,
+  TouchableOpacity,
 } from "react-native"
 import { format } from "date-fns"
+import { Entypo } from "@expo/vector-icons"
+import { SafeAreaView } from "react-native-safe-area-context"
 
 import colors from "../constants/colors"
 import { ConversionInput } from "../components/ConversionInput"
@@ -23,7 +26,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blue,
   },
   content: {
-    paddingTop: screen.height * 0.2,
+    paddingTop: screen.height * 0.1,
   },
   logoContainer: {
     alignItems: "center",
@@ -54,26 +57,30 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 10,
   },
+  header: {
+    alignItems: "flex-end",
+    marginHorizontal: 20,
+  },
 })
 
-export default () => {
+export default ({ navigation }) => {
   const baseCurrency = "USD"
   const quoteCurrency = "GBP"
-  const conversionRate = 0.79
-  const date = "2024-11-27"
+  const conversionRate = 0.89824
+  const date = "2020-03-23"
 
   const [scrollEnabled, setScrollEnabled] = useState(false)
-  const [inputDolar, setInputDolar] = useState("")
-
-  const handleTextChange = (text) => {
-    setInputDolar(text)
-  }
-
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
       <ScrollView scrollEnabled={scrollEnabled}>
+        <SafeAreaView style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.push("Options")}>
+            <Entypo name="cog" size={32} color={colors.white} />
+          </TouchableOpacity>
+        </SafeAreaView>
+
         <View style={styles.content}>
           <View style={styles.logoContainer}>
             <Image
@@ -87,15 +94,14 @@ export default () => {
               resizeMode="contain"
             />
           </View>
-          <Text style={styles.textHeader}>Conversor de Moeda</Text>
+          <Text style={styles.textHeader}>Currency Converter</Text>
           <View style={styles.inputContainer}>
             <ConversionInput
               text={baseCurrency}
-              value={inputDolar}
-              onChangeText={handleTextChange}
+              value="123"
               onButtonPress={() => alert("todo!")}
               keyboardType="numeric"
-              //onChangeText={text => console.log("text", text)}
+              onChangeText={text => console.log("text", text)}
             />
             <ConversionInput
               text={quoteCurrency}
@@ -105,14 +111,12 @@ export default () => {
             />
           </View>
           <Text style={styles.text}>
-            {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} em ${format(
+            {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${format(
               new Date(date),
               "MMM do, yyyy"
             )}`}
           </Text>
-          <Text style={styles.text}>USD = Dólar americano</Text>
-          <Text style={styles.text}>GBP = Libra esterlina</Text>
-          <Button text="Moedas Reversas" onPress={() => alert("todo!")} />
+          <Button text="Reverse Currencies" onPress={() => alert("todo!")} />
           <KeyboardSpacer onToggle={visible => setScrollEnabled(visible)} />
         </View>
       </ScrollView>
