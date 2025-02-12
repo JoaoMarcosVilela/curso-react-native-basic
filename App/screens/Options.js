@@ -24,7 +24,7 @@ export default () => {
       <ScrollView>
         <RowItem
           title="Themes"
-          onPress={() => alert("todo!")}
+          onPress={() => alert("Themes hiihih")}
           rightIcon={
             <Entypo name="chevron-right" size={20} color={colors.blue} />
           }
